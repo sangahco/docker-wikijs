@@ -1,0 +1,30 @@
+version: '3'
+services:
+  wikidb:
+    image: mongo:3
+    expose:
+      - '27017'
+    command: '--smallfiles --bind_ip ::,0.0.0.0'
+    environment:
+      - 'MONGO_LOG_DIR=/dev/null'
+    volumes:
+      - /opt/wikijs/data/mongo:/data/db
+  wikijs:
+    image: 'requarks/wiki:latest'
+    links:
+      - wikidb
+    expose:
+      - '80'
+    depends_on:
+      - wikidb
+    networks: 
+      default:
+      hub_net:
+        aliases: 
+        - ${HUB_INSTANCE}
+    environment:
+      WIKI_ADMIN_EMAIL: ${WIKIJS_ADMIN_EMAIL}
+    volumes:
+      - ${WIKIJS_CONFIG_FILE}:/var/wiki/config.yml
+      - ${GITLAB_PRIVATE_KEY_FILE}:/etc/wiki/keys/git.pem
+      - ${WIKIJS_GIT_FOLDER}:/var/wiki/repo
