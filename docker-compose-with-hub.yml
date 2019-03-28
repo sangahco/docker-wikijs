@@ -9,6 +9,11 @@ services:
       - 'MONGO_LOG_DIR=/dev/null'
     volumes:
       - /opt/wikijs/data/mongo:/data/db
+    logging: 
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
   wikijs:
     image: 'requarks/wiki:latest'
     links:
@@ -17,6 +22,11 @@ services:
       - '80'
     depends_on:
       - wikidb
+    logging: 
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
     networks: 
       default:
       hub_net:
