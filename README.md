@@ -37,3 +37,5 @@ The following settings are available:
 | WIKIJS_ADMIN_EMAIL      | The admin email                                           |                        |
 | GITLAB_PRIVATE_KEY_FILE | Private key to login into the git repository              |                        |
 | HUB_INSTANCE            | If the hub is used give a name to this container          | wikijs                 |
+
+(\*) *table generated with [tablesgenerator](http://www.tablesgenerator.com/markdown_tables)*
