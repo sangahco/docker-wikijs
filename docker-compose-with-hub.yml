@@ -42,3 +42,7 @@ services:
       - ${GITLAB_PRIVATE_KEY_FILE}:/etc/wiki/keys/git.pem
       - ${WIKIJS_GIT_FOLDER}:/var/wiki/repo
     restart: "unless-stopped"
+
+networks: 
+  hub_net:
+    external: true
