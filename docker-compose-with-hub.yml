@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   wikidb:
     image: mongo:3
@@ -6,7 +7,7 @@ services:
       - '27017'
     command: '--smallfiles --bind_ip ::,0.0.0.0'
     environment:
-      - 'MONGO_LOG_DIR=/dev/null'
+      - MONGO_LOG_DIR=/dev/null
     volumes:
       - /opt/wikijs/data/mongo:/data/db
     logging: 
@@ -14,8 +15,10 @@ services:
       options:
         max-size: "10m"
         max-file: "5"
+    restart: "unless-stopped"
+  
   wikijs:
-    image: 'requarks/wiki:latest'
+    image: requarks/wiki:latest
     links:
       - wikidb
     expose:
@@ -33,8 +36,9 @@ services:
         aliases: 
         - ${HUB_INSTANCE}
     environment:
-      WIKI_ADMIN_EMAIL: ${WIKIJS_ADMIN_EMAIL}
+      - WIKI_ADMIN_EMAIL=${WIKIJS_ADMIN_EMAIL}
     volumes:
       - ${WIKIJS_CONFIG_FILE}:/var/wiki/config.yml
       - ${GITLAB_PRIVATE_KEY_FILE}:/etc/wiki/keys/git.pem
       - ${WIKIJS_GIT_FOLDER}:/var/wiki/repo
+    restart: "unless-stopped"
