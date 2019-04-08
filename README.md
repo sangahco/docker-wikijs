@@ -23,3 +23,17 @@ If they are missing, follow the instructions on the official website (they are n
 **Use the script `docker-auto.sh` to manage these services!**
 
     $ ./docker-auto.sh --help
+
+
+## Settings Up the Environment
+
+The following settings are available:
+
+
+| Variable                | Description                                               | Default                |
+|-------------------------|-----------------------------------------------------------|------------------------|
+| WIKIJS_CONFIG_FILE      | The wikijs config file (create a config.yml)              | /opt/wikijs/config.yml |
+| WIKIJS_GIT_FOLDER       | The wiki git folder for synchronization (should be empty) | /opt/wikijs/repo       |
+| WIKIJS_ADMIN_EMAIL      | The admin email                                           |                        |
+| GITLAB_PRIVATE_KEY_FILE | Private key to login into the git repository              |                        |
+| HUB_INSTANCE            | If the hub is used give a name to this container          | wikijs                 |
