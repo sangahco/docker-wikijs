@@ -1,0 +1,11 @@
+.copyignore
+*.properties
+log
+certs
+ssl
+*.war
+*.lock
+was/webapp
+config.yml
+wikijs.key
+repo

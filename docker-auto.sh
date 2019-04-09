@@ -62,7 +62,7 @@ fi
 for i in "$@"; do
     case $i in
         --with-hub)
-			CONF_ARG="$CONF_ARG -f docker-compose-with-hub.yml"
+			CONF_ARG="-f docker-compose-with-hub.yml"
 			shift
 			;;
         --help|-h)
