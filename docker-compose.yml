@@ -9,7 +9,7 @@ services:
     environment:
       - MONGO_LOG_DIR=/dev/null
     volumes:
-      - /opt/wikijs/data/mongo:/data/db
+      - ${WIKIJS_DB_HOME}:/data/db
     logging: 
       driver: "json-file"
       options:
