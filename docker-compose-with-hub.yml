@@ -2,46 +2,41 @@ version: '3'
 
 services:
   wikidb:
-    image: mongo:3
-    expose:
-      - '27017'
-    command: '--smallfiles --bind_ip ::,0.0.0.0'
+    image: postgres:11-alpine
     environment:
-      - MONGO_LOG_DIR=/dev/null
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: wikijsrocks
+      POSTGRES_USER: wikijs
+    logging:
+      driver: "none"
+    restart: unless-stopped
     volumes:
-      - ${WIKIJS_DB_HOME}:/data/db
-    logging: 
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "5"
-    restart: "unless-stopped"
+      - ${WIKIJS_DB_HOME}:/var/lib/postgresql/data
   
   wikijs:
-    image: requarks/wiki:1.0
-    links:
-      - wikidb
-    expose:
-      - '80'
+    image: requarks/wiki:2
     depends_on:
       - wikidb
-    logging: 
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "5"
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: wikijsrocks
+      DB_NAME: wiki
     networks: 
       default:
       hub_net:
         aliases: 
         - ${HUB_INSTANCE}
-    environment:
-      - WIKI_ADMIN_EMAIL=${WIKIJS_ADMIN_EMAIL}
-    volumes:
-      - ${WIKIJS_CONFIG_FILE}:/var/wiki/config.yml
-      - ${GITLAB_PRIVATE_KEY_FILE}:/etc/wiki/keys/git.pem
-      - ${WIKIJS_GIT_FOLDER}:/var/wiki/repo
-    restart: "unless-stopped"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    restart: unless-stopped
+    ports:
+      - "80:3000"
 
 networks: 
   hub_net:
