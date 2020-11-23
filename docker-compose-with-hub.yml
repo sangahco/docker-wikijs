@@ -21,8 +21,8 @@ services:
       DB_TYPE: postgres
       DB_HOST: wikidb
       DB_PORT: 5432
-      DB_USER: wikijs
-      DB_PASS: wikijsrocks
+      DB_USER: ${WIKIJS_USER}
+      DB_PASS: ${WIKIJS_PWD}
       DB_NAME: wiki
     networks: 
       default:
