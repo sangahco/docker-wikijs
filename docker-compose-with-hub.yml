@@ -29,14 +29,14 @@ services:
       hub_net:
         aliases: 
         - ${HUB_INSTANCE}
+    expose:
+      - '3000'
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "5"
     restart: unless-stopped
-    ports:
-      - "8090:3000"
 
 networks: 
   hub_net:
