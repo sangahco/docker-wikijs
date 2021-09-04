@@ -5,8 +5,8 @@ services:
     image: postgres:11-alpine
     environment:
       POSTGRES_DB: wiki
-      POSTGRES_PASSWORD: ${WIKIJS_USER}
-      POSTGRES_USER: ${WIKIJS_PWD}
+      POSTGRES_PASSWORD: ${WIKIJS_PWD}
+      POSTGRES_USER: ${WIKIJS_USER}
     logging:
       driver: "json-file"
       options:
