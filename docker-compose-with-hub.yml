@@ -8,7 +8,10 @@ services:
       POSTGRES_PASSWORD: ${WIKIJS_USER}
       POSTGRES_USER: ${WIKIJS_PWD}
     logging:
-      driver: "none"
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
     restart: unless-stopped
     volumes:
       - ${WIKIJS_DB_HOME}:/var/lib/postgresql/data
