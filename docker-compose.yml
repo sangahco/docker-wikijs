@@ -14,7 +14,7 @@ services:
         max-file: "5"
     restart: unless-stopped
     volumes:
-      - ${WIKIJS_DB_HOME}:/var/lib/postgresql/data
+      - ${WIKIJS_DATA_HOME}/db:/var/lib/postgresql/data
   
   wikijs:
     image: requarks/wiki:2
@@ -32,6 +32,8 @@ services:
       options:
         max-size: "10m"
         max-file: "5"
+    volumes:
+      - ${WIKIJS_DATA_HOME}/data:/wiki/data
     restart: unless-stopped
     ports:
       - "8090:3000"
